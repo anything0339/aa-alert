@@ -1,3 +1,5 @@
+// redeploy trigger
+
 import cron from "node-cron";
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
@@ -183,3 +185,4 @@ console.log("AA alert started");
 cron.schedule(CRON, () => tick().catch(console.error), {
   timezone: "Asia/Seoul",
 });
+
