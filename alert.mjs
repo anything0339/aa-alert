@@ -1,4 +1,5 @@
 // redeploy trigger
+import http from "node:http";
 
 import cron from "node-cron";
 
@@ -203,4 +204,11 @@ cron.schedule(CRON, () => tick().catch(console.error), {
 
 tick().catch(console.error);
 
-setInterval(() => {}, 60 * 1000);
+const port = process.env.PORT || 3000;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("ok");
+}).listen(port, () => {
+  console.log("health server listening on", port);
+});
