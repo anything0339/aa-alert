@@ -177,7 +177,7 @@ async function tick() {
 
         const embed = {
           title: `${getEmoji(displayName)} ${displayName}`,
-          color: getEmbedColor(displayName),
+          color: getEmbedColor(ev.name),
           description:
             `**시작:** <t:${startEpoch}:F>\n` +
             `**T-${leadMin}m 알림**`,
