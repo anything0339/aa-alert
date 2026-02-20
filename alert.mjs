@@ -170,7 +170,7 @@ async function tick() {
     for (const leadMin of LEADS_MIN) {
       const alertEpoch = startEpoch - leadMin * 60;
 
-      if (nowEpoch >= alertEpoch && nowEpoch < alertEpoch + 60) {
+      if (Math.abs(nowEpoch - alertEpoch) <= 20) {
         const key = `${ev.id}-${startEpoch}-${leadMin}`;
         if (sent.has(key)) continue;
         sent.add(key);
