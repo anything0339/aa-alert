@@ -202,3 +202,5 @@ cron.schedule(CRON, () => tick().catch(console.error), {
 });
 
 tick().catch(console.error);
+
+setInterval(() => {}, 60 * 1000);
