@@ -204,11 +204,11 @@ cron.schedule(CRON, () => tick().catch(console.error), {
 
 tick().catch(console.error);
 
-const port = process.env.PORT || 3000;
+const port = Number(process.env.PORT || 3000);
 
 http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
   res.end("ok");
-}).listen(port, () => {
+}).listen(port, "0.0.0.0", () => {
   console.log("health server listening on", port);
 });
