@@ -150,6 +150,8 @@ async function tick() {
 
     const nameLower = String(ev.name ?? "").toLowerCase();
     if (!TARGETS.some((k) => nameLower.includes(k))) continue;
+    
+    const displayName = NAME_MAP[nameLower] ?? ev.name;
 
     const times = ev.times?.filter((t) => (t.region ?? REGION) === REGION);
     if (!times?.length) continue;
