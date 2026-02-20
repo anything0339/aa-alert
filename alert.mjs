@@ -151,10 +151,14 @@ async function tick() {
     const nameLower = String(ev.name ?? "").toLowerCase();
     if (!TARGETS.some((k) => nameLower.includes(k))) continue;
     
+    const baseName = nameLower;
     const displayName = NAME_MAP[nameLower] ?? ev.name;
 
-    const times = ev.times?.filter((t) => (t.region ?? REGION) === REGION);
-    if (!times?.length) continue;
+const timesExact = ev.times?.filter((t) => t.region === REGION) ?? [];
+const timesFallback = ev.times?.filter((t) => t.region == null) ?? [];
+const times = timesExact.length ? timesExact : timesFallback;
+
+if (!times.length) continue;
 
     let bestNext = null;
     for (const t of times) {
@@ -170,17 +174,23 @@ async function tick() {
     for (const leadMin of LEADS_MIN) {
       const alertEpoch = startEpoch - leadMin * 60;
 
-      if (Math.abs(nowEpoch - alertEpoch) <= 20) {
-        const key = `${ev.id}-${startEpoch}-${leadMin}`;
-        if (sent.has(key)) continue;
-        sent.add(key);
+if (Math.abs(nowEpoch - alertEpoch) <= 20) {
+  const minuteBucket = Math.floor(alertEpoch / 60);
+  const key = `${ev.id}-${startEpoch}-${leadMin}-${minuteBucket}`;
+
+  if (sent.has(key)) continue;
+  sent.add(key);
+
+  const embed = { ... }
+  await sendWebhook({ embeds: [embed] });
+}
 
         const embed = {
-          title: `${getEmoji(displayName)} ${displayName}`,
-          color: getEmbedColor(ev.name),
+          title: `${getEmoji(baseName)} ${displayName}`,
+          color: getEmbedColor(baseName),
           description:
             `**시작:** <t:${startEpoch}:F>\n` +
-            `**T-${leadMin}m 알림**`,
+            `**${leadMin}분 전 알림**`,
           footer: { text: `NA · Archeage Event Alert` },
         };
 
