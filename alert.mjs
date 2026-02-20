@@ -2,6 +2,13 @@
 
 import cron from "node-cron";
 
+const NAME_MAP = {
+  "black dragon": "검은 용",
+  "golden plains battle": "황평",
+  "hiram rift": "히라마 징조",
+  "jola, meina, & glenn": "샤글레"
+};
+
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
 const REGION = "NA";
 
