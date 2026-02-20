@@ -201,3 +201,4 @@ cron.schedule(CRON, () => tick().catch(console.error), {
   timezone: "Asia/Seoul",
 });
 
+tick().catch(console.error);
