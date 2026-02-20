@@ -171,30 +171,26 @@ if (!times.length) continue;
 
     const startEpoch = Math.floor(bestNext.getTime() / 1000);
 
-    for (const leadMin of LEADS_MIN) {
-      const alertEpoch = startEpoch - leadMin * 60;
+for (const leadMin of LEADS_MIN) {
+  const alertEpoch = startEpoch - leadMin * 60;
 
-if (Math.abs(nowEpoch - alertEpoch) <= 20) {
-  const minuteBucket = Math.floor(alertEpoch / 60);
-  const key = `${ev.id}-${startEpoch}-${leadMin}-${minuteBucket}`;
+  if (Math.abs(nowEpoch - alertEpoch) <= 20) {
+    const minuteBucket = Math.floor(alertEpoch / 60);
+    const key = `${ev.id}-${startEpoch}-${leadMin}-${minuteBucket}`;
 
-  if (sent.has(key)) continue;
-  sent.add(key);
+    if (sent.has(key)) continue;
+    sent.add(key);
 
-  const embed = { ... }
-  await sendWebhook({ embeds: [embed] });
-}
+    const embed = {
+      title: `${getEmoji(baseName)} ${displayName}`,
+      color: getEmbedColor(baseName),
+      description:
+        `**시작:** <t:${startEpoch}:F>\n` +
+        `**${leadMin}분 전 알림**`,
+      footer: { text: `NA · Archeage Event Alert` },
+    };
 
-const embed = {
-  title: `${getEmoji(baseName)} ${displayName}`,
-  color: getEmbedColor(baseName),
-  description:
-    `**시작:** <t:${startEpoch}:F>\n` +
-    `**${leadMin}분 전알림**`,
-  footer: { text: `NA · Archeage Event Alert` },
-};
-
-        await sendWebhook({ embeds: [embed] });
+    await sendWebhook({ embeds: [embed] });
       }
     }
   }
