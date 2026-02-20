@@ -144,7 +144,7 @@ async function tick() {
     const nameLower = String(ev.name ?? "").toLowerCase();
     if (!TARGETS.some((k) => nameLower.includes(k))) continue;
 
-    const times = ev.times?.filter((t) => t.region === REGION);
+    const times = ev.times?.filter((t) => t.region === REGION || t.region == null); === REGION);
     if (!times?.length) continue;
 
     let bestNext = null;
