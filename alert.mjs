@@ -185,14 +185,14 @@ if (Math.abs(nowEpoch - alertEpoch) <= 20) {
   await sendWebhook({ embeds: [embed] });
 }
 
-        const embed = {
-          title: `${getEmoji(baseName)} ${displayName}`,
-          color: getEmbedColor(baseName),
-          description:
-            `**시작:** <t:${startEpoch}:F>\n` +
-            `**${leadMin}분 전 알림**`,
-          footer: { text: `NA · Archeage Event Alert` },
-        };
+const embed = {
+  title: `${getEmoji(baseName)} ${displayName}`,
+  color: getEmbedColor(baseName),
+  description:
+    `**시작:** <t:${startEpoch}:F>\n` +
+    `**${leadMin}분 전알림**`,
+  footer: { text: `NA · Archeage Event Alert` },
+};
 
         await sendWebhook({ embeds: [embed] });
       }
