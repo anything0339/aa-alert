@@ -7,7 +7,12 @@ const NAME_MAP = {
   "black dragon": "검은 용",
   "golden plains battle": "황평",
   "hiram rift": "히라마 징조",
-  "jola, meina, & glenn": "샤글레"
+  "Akasch Invasion": "침공",
+  "Kraken": "크라켄",
+  "jola, meina, & glenn": "샤글레",
+  "crimson rift": "낮징",
+  "crimson rift (auroria)": "태들징",
+  "grimghast rift": "밤징",
 };
 
 const WEBHOOK_URL = process.env.WEBHOOK_URL;
@@ -23,6 +28,9 @@ const TARGETS = [
   "Jola, Meina, & Glenn",
   "Black Dragon",
   "Golden Plains Battle",
+  "Crimson Rift",
+  "Crimson Rift (Auroria)",
+  "Grimghast Rift",
 ].map((s) => s.toLowerCase());
 
 const LEADS_MIN = [10, 1];
@@ -121,6 +129,9 @@ function getEmbedColor(name) {
     n.includes("black dragon")
   )
     return 0xe74c3c; // 빨강
+  
+    if (n.includes("crimson rift") || n.includes("grimghast rift"))
+    return 0xf39c12; // 주황
 
   return 0x95a5a6; // 기본 회색
 }
@@ -134,6 +145,9 @@ function getEmoji(name) {
   if (n.includes("jola, meina, & glenn")) return "🔥";
   if (n.includes("black dragon")) return "🐉";
   if (n.includes("golden plains battle")) return "⚔️";
+  if (n.includes("crimson rift (auroria)")) return "😈";
+  if (n.includes("crimson rift")) return "☀️";
+  if (n.includes("grimghast rift")) return "🌙";
 
   return "⏰";
 }
@@ -212,3 +226,4 @@ http.createServer((req, res) => {
 }).listen(port, "0.0.0.0", () => {
   console.log("health server listening on", port);
 });
+
